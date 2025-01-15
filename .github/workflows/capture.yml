@@ -8,11 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+    - uses: snok/install-poetry@v1
     - uses: actions/setup-python@v5
       with:
         python-version: '3.13'
         cache: 'poetry'
-    - uses: snok/install-poetry@v1
     - run: poetry install --no-interaction --no-root
     - run: poetry run playwright install webkit
     - run: poetry run python capture.py
