@@ -15,8 +15,7 @@ jobs:
         cache: 'poetry'
     - run: |
         poetry install --no-interaction --no-root
-        source $(poetry env info --path)/bin/activate
-        sudo playwright install-deps
-        playwright install webkit
-        python capture.py
+        sudo poetry run playwright install-deps
+        poetry run playwright install webkit
+        poetry run python capture.py
     - uses: stefanzweifel/git-auto-commit-action@v5
