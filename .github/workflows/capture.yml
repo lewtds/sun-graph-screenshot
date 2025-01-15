@@ -13,7 +13,10 @@ jobs:
       with:
         python-version: '3.13'
         cache: 'poetry'
-    - run: poetry install --no-interaction --no-root
-    - run: poetry run playwright install webkit
-    - run: poetry run python capture.py
+    - run: |
+        poetry install --no-interaction --no-root
+        source $(poetry env info --path)/bin/activate
+        sudo playwright install-deps
+        playwright install webkit
+        python capture.py
     - uses: stefanzweifel/git-auto-commit-action@v5
