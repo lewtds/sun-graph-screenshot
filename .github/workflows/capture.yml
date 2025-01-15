@@ -33,7 +33,7 @@ jobs:
         cache: 'poetry'
     - name: install python deps
       run: |
-        sudo $(poetry env info --path)/bin/poetry install --with-deps --no-interaction --no-root
-        poetry run playwright install webkit
+        poetry install  --no-interaction --no-root
+        sudo $(poetry env info --path)/bin/playwright install webkit --with-deps
     - run: poetry run python capture.py
     - uses: stefanzweifel/git-auto-commit-action@v5
