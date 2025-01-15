@@ -9,12 +9,9 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - uses: snok/install-poetry@v1
-    - uses: actions/setup-python@v5
-      with:
-        python-version: '3.13'
-        cache: 'poetry'
-    - run: |
-        poetry install --no-interaction --no-root
+    - name: Install playwright dependencies
+      run: |
+        sudo apt update
         sudo apt-get install libwoff1\                   
            libvpx9\                                     
            libevent-2.1-7t64\                           
@@ -30,6 +27,13 @@ jobs:
            libmanette-0.2-0\                            
            libgles2\                                    
            gstreamer1.0-libav
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+        cache: 'poetry'
+    - name: install python deps
+      run: |
+        poetry install --no-interaction --no-root
         poetry run playwright install webkit
-        poetry run python capture.py
+    - run: poetry run python capture.py
     - uses: stefanzweifel/git-auto-commit-action@v5
